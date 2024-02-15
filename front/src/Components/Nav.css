@@ -1,0 +1,22 @@
+.nav_header {
+  background-color: azure;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  border-bottom: 0.1rem solid #e5e5e5;
+}
+.nav_logo {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  height: 4rem;
+  width: auto;
+  padding-right: 2rem;
+  padding-left: 0.8rem;
+}
+
+.nav_text {
+  margin-left: 2rem;
+  color: black;
+  text-decoration: none;
+}
