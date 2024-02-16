@@ -14,6 +14,14 @@ function App() {
     handleClickBoard,
   } = Navigation();
 
+  const handleLogout = () => {
+    localStorage.removeItem("Username");
+    window.location.reload();
+    alert("Logout successful");
+  };
+
+  const nowNavUsername = localStorage.getItem("Username");
+
   return (
     <div>
       <header className="nav_header">
@@ -32,9 +40,16 @@ function App() {
         <span className="nav_text" onClick={handleClickBoard}>
           Board
         </span>
-        <span className="nav_text" onClick={handleClickLogin}>
-          Login
-        </span>
+
+        {nowNavUsername ? (
+          <span className="nav_text" onClick={handleLogout}>
+            Logout
+          </span>
+        ) : (
+          <span className="nav_text" onClick={handleClickLogin}>
+            Login
+          </span>
+        )}
       </header>
     </div>
   );

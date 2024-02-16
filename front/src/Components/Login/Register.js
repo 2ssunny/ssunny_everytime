@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Register.css";
 
 import axios from "axios";
@@ -16,10 +16,6 @@ function App() {
   const [verificationCode, setVerificationCode] = useState("");
 
   const { handleClickHome } = Navigation();
-
-  useEffect(() => {
-    console.log(serverVerificationCode);
-  }, [serverVerificationCode]);
 
   const checkDuplicate = async (e) => {
     e.preventDefault();
@@ -48,7 +44,6 @@ function App() {
       );
       setServerVerificationCode(response.data.verifyCode);
       alert("Verification email sent");
-      console.log(response.data.verifyCode);
     } catch (error) {
       console.error(
         "An error occurred while sending the verification email:",

@@ -110,6 +110,31 @@ app.post("/register", (req, res) => {
   );
 });
 
+app.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  db.query("SELECT * FROM user WHERE email = ?", [email], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while logging in." });
+    } else {
+      if (results.length > 0) {
+        const user = results[0];
+        if (user.password === password) {
+          res.status(200).json({ message: "success", username: user.username });
+        } else {
+          res
+            .status(200)
+            .json({ message: "failure", reason: "Invalid password" });
+        }
+      } else {
+        res.status(200).json({ message: "failure", reason: "Invalid email" });
+      }
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
 });

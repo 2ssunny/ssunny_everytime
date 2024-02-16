@@ -3,11 +3,28 @@ import "./Login.css";
 
 import { Navigation } from "../../navigation.js";
 
+import axios from "axios";
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { handleClickHome, handleClickRegister } = Navigation();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const response = await axios.post("http://localhost:8000/login", {
+      email,
+      password,
+    });
+    if (response.data.message === "success") {
+      localStorage.setItem("Username", response.data.username);
+      alert("Login successful. Going to the home page.");
+      handleClickHome();
+    } else {
+      alert("Login failed. Check your email and password.");
+    }
+  };
 
   return (
     <div className="login">
@@ -37,7 +54,9 @@ function App() {
               />
             </label>
             <p className="space"></p>
-            <button className="login_button">Login</button>
+            <button className="login_button" onClick={handleLogin}>
+              Login
+            </button>
           </form>
         </div>
         <div className="login_registerLink">
