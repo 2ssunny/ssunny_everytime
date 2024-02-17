@@ -22,7 +22,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
         <Route path="timetable">
-          <Route path="check" element={<TimetableCheck />} />
+          <Route path="" element={<TimetableCheck />} />
           <Route path="set" element={<TimetableSet />} />
         </Route>
         <Route path="board">

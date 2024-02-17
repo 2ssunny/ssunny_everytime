@@ -20,7 +20,7 @@ export function Navigation() {
   };
 
   const handleClickTimetableCheck = (e) => {
-    navigate("/timetable/check");
+    navigate("/timetable");
   };
 
   const handleClickTimetableSet = (e) => {
