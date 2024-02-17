@@ -7,7 +7,8 @@ import Register from "./Components/Login/Register.js";
 import Login from "./Components/Login/Login.js";
 import TimetableCheck from "./Components/Timetable/TimetableCheck.js";
 import TimetableSet from "./Components/Timetable/TimetableSet.js";
-import Board from "./Components/Board/Board.js";
+import BoardList from "./Components/Board/Board.js";
+import BoardView from "./Components/Board/BoardView.js";
 import BoardPost from "./Components/Board/BoardPost.js";
 import NotFound from "./NotFound.js";
 
@@ -27,7 +28,8 @@ function App() {
           <Route path="set" element={<TimetableSet />} />
         </Route>
         <Route path="board">
-          <Route path="" element={<Board />} />
+          <Route path="" element={<BoardList />} />
+          <Route path="view/:no" element={<BoardView />} />
           <Route path="post" element={<BoardPost />} />
         </Route>
         <Route path="*" element={<NotFound />} />
