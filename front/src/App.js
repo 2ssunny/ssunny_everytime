@@ -9,6 +9,7 @@ import TimetableCheck from "./Components/Timetable/TimetableCheck.js";
 import TimetableSet from "./Components/Timetable/TimetableSet.js";
 import Board from "./Components/Board/Board.js";
 import BoardPost from "./Components/Board/BoardPost.js";
+import NotFound from "./NotFound.js";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="" element={<Board />} />
           <Route path="post" element={<BoardPost />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
