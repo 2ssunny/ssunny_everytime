@@ -8,13 +8,13 @@ function App() {
   return (
     <div>
       <header className="home_header">
-        <h1 className="home_text">
-          {nowHomeUsername ? (
-            <p>Welcome, {nowHomeUsername}</p>
-          ) : (
-            <p>Welcome. Login to use all features.</p>
-          )}
-        </h1>
+        {nowHomeUsername ? (
+          <h1 className="home_text">
+            Welcome, "{nowHomeUsername}"! You are now logged in.
+          </h1>
+        ) : (
+          <h1 className="home_text">Welcome. Login to use all features.</h1>
+        )}
       </header>
     </div>
   );

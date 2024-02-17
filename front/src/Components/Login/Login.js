@@ -20,7 +20,8 @@ function App() {
     if (response.data.message === "success") {
       localStorage.setItem("Username", response.data.username);
       alert("Login successful. Going to the home page.");
-      handleClickHome();
+
+      window.location.href = "/";
     } else {
       alert("Login failed. Check your email and password.");
     }
