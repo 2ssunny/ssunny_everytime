@@ -14,7 +14,7 @@ function App() {
 
   const { handleClickBoardPost } = Navigation();
   useEffect(() => {
-    axios.get("http://localhost:8000/boardList", {}).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER}/boardList`, {}).then((res) => {
       setBoardData(res.data);
     });
   }, []);
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="board">
-      <h1>Board</h1>
+      <h1 className="board_title">Board</h1>
       {nowBoardUsername ? (
         <button className="boardWrite" onClick={handleClickBoardPost}>
           Write

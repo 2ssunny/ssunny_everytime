@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import axios from "axios";
+
+import "./BoardPost.css";
 
 const nowBoardPostUsername = localStorage.getItem("Username");
 
@@ -25,6 +27,11 @@ function App() {
       return;
     }
 
+    if (!title.trim() || !body.trim()) {
+      alert("Title and Content cannot be empty.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("body", body);
@@ -34,7 +41,7 @@ function App() {
     }
 
     const response = await axios.post(
-      "http://localhost:8000/boardUpload",
+      `${process.env.REACT_APP_SERVER}/boardUpload`,
       formData,
       {
         headers: {
@@ -51,26 +58,36 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>BoardPost</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-        <label>
-          Body:
-          <textarea value={body} onChange={(e) => setBody(e.target.value)} />
-        </label>
-        <label>
-          Files:
-          <input type="file" multiple onChange={handleFileChange} />
-        </label>
-        <button type="submit">Submit</button>
+    <div className="boardpost">
+      <h1 className="boardpost_title">BoardPost</h1>
+      <form onSubmit={handleSubmit} className="boardpost_form">
+        <div className="boardpost_form_box">
+          <label className="boardpost_form_title">
+            Title:
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </label>
+          <label className="boardpost_form_body">
+            Content:
+            <textarea
+              className="boardpost_form_body_input"
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+            />
+          </label>
+          <label className="boardpost_form_file">
+            Files:
+            <input type="file" multiple onChange={handleFileChange} />
+          </label>
+
+          <p className="boardpost_username">
+            Positng as {nowBoardPostUsername}
+          </p>
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );
