@@ -148,16 +148,15 @@ app.get("/boardList", (req, res) => {
     res.send(result);
   });
 });
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "uploads"));
   },
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const originalNameWithoutExtension = path.parse(file.originalname).name;
+    const extension = path.parse(file.originalname).ext;
+    cb(null, originalNameWithoutExtension + "-" + uniqueSuffix + extension);
   },
 });
 
@@ -168,7 +167,7 @@ app.post("/boardUpload", upload.array("files", 5), (req, res) => {
   const body = req.body.body;
   const username = req.body.username;
 
-  const fileNames = req.files.map((file) => file.filename);
+  const fileNames = req.files.map((file) => file.filename); // 변경된 파일 이름을 사용합니다.
 
   db.query(
     "INSERT INTO board (BOARD_TITLE, BOARD_CONTENT, REGISTER_ID, FILES) VALUES (?, ?, ?, ?)",
@@ -182,4 +181,42 @@ app.post("/boardUpload", upload.array("files", 5), (req, res) => {
       }
     }
   );
+});
+app.get("/board/:id", (req, res) => {
+  const boardId = req.params.id;
+  db.query(
+    "SELECT BOARD_TITLE, BOARD_CONTENT, REGISTER_ID, REGISTER_DATE, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d %T') AS REGISTER_DATE, FILES FROM board WHERE BOARD_ID = ?",
+    [boardId],
+    (error, results) => {
+      if (error) {
+        console.error("Error executing query: ", error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while fetching data" });
+      } else {
+        if (results.length === 0) {
+          console.log(`No board found with id: ${boardId}`);
+          res.status(404).json({ error: "No board found" });
+        } else {
+          console.log(`Board found: `, results[0]);
+          res.status(200).json(results[0]);
+        }
+      }
+    }
+  );
+});
+
+app.get("/download/:filename", function (req, res) {
+  const filename = req.params.filename;
+  const fileDirectory = path.resolve(__dirname, "uploads");
+  const filePath = path.join(fileDirectory, filename);
+
+  res.download(filePath, filename, function (err) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("File download failed.");
+    } else {
+      console.log("File downloaded.");
+    }
+  });
 });
