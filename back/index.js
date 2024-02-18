@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
+const multer = require("multer");
+const path = require("path");
 
 const PORT = process.env.port || 8000;
 
@@ -9,6 +11,10 @@ const nodemailer = require("nodemailer");
 
 app.use(cors());
 app.use(express.json());
+
+app.listen(PORT, () => {
+  console.log(`running on port ${PORT}`);
+});
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -135,6 +141,45 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`running on port ${PORT}`);
+app.get("/boardList", (req, res) => {
+  const sqlQuery =
+    "SELECT BOARD_ID, BOARD_TITLE, REGISTER_ID, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d') AS REGISTER_DATE FROM BOARD;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/boardUpload", upload.array("files", 5), (req, res) => {
+  const title = req.body.title;
+  const body = req.body.body;
+  const username = req.body.username;
+
+  const fileNames = req.files.map((file) => file.filename);
+
+  db.query(
+    "INSERT INTO board (BOARD_TITLE, BOARD_CONTENT, REGISTER_ID, FILES) VALUES (?, ?, ?, ?)",
+    [title, body, username, JSON.stringify(fileNames)],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: "An error occurred while uploading" });
+      } else {
+        res.status(200).json({ message: "success" });
+      }
+    }
+  );
 });
