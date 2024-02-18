@@ -142,14 +142,15 @@ function App() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
+              <button onClick={checkDuplicate}>Check Duplicate</button>
+              <br></br>
+              <button
+                className="register_emailVerify"
+                onClick={sendVerifyEmail}
+              >
+                Send verify email
+              </button>
             </label>
-            <button onClick={checkDuplicate}>Check Duplicate</button>
-            <br></br>
-            <p className="space"></p>
-            <button className="register_emailVerify" onClick={sendVerifyEmail}>
-              Send verify email
-            </button>
-            <br></br>
             <label className="registerBox_Text">
               Verify Code:
               <br></br>
