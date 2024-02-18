@@ -34,9 +34,9 @@ function App() {
         <span className="nav_text" onClick={handleClickAbout}>
           About
         </span>
-        <span className="nav_text" onClick={handleClickTimetableCheck}>
+        {/* <span className="nav_text" onClick={handleClickTimetableCheck}>
           Timetable
-        </span>
+        </span> */}
         <span className="nav_text" onClick={handleClickBoard}>
           Board
         </span>

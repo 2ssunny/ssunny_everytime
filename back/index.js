@@ -143,11 +143,12 @@ app.post("/login", (req, res) => {
 
 app.get("/boardList", (req, res) => {
   const sqlQuery =
-    "SELECT BOARD_ID, BOARD_TITLE, REGISTER_ID, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d') AS REGISTER_DATE FROM BOARD;";
+    "SELECT BOARD_ID, BOARD_TITLE, REGISTER_ID, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d') AS REGISTER_DATE FROM board;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
 });
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "uploads"));

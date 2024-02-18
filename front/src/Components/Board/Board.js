@@ -15,12 +15,21 @@ function App() {
   const { handleClickBoardPost } = Navigation();
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER}/boardList`, {}).then((res) => {
-      setBoardData(res.data);
+      if (Array.isArray(res.data)) {
+        setBoardData(res.data);
+      } else {
+        console.error("Unexpected response data:", res.data);
+        setBoardData([]);
+      }
     });
   }, []);
 
   const handleBoardView = (boardId) => {
-    navigate(`/board/view/${boardId}`);
+    if (nowBoardUsername) {
+      navigate(`/board/view/${boardId}`);
+    } else {
+      alert("Login to view the post");
+    }
   };
 
   return (
