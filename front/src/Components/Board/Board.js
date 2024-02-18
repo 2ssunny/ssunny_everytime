@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./Board.css";
+import { useNavigate } from "react-router-dom";
 
 import { Navigation } from "../../navigation.js";
 
 const nowBoardUsername = localStorage.getItem("Username");
 
 function App() {
+  const navigate = useNavigate();
   const [boardData, setBoardData] = useState([]);
 
   const { handleClickBoardPost } = Navigation();
@@ -16,6 +18,10 @@ function App() {
       setBoardData(res.data);
     });
   }, []);
+
+  const handleBoardView = (boardId) => {
+    navigate(`/board/view/${boardId}`);
+  };
 
   return (
     <div className="board">
@@ -30,7 +36,11 @@ function App() {
       <div className="BoardItem">
         {boardData.map((data, index) => {
           return (
-            <div key={index} className="boardList">
+            <div
+              key={index}
+              className="boardList"
+              onClick={() => handleBoardView(data.BOARD_ID)}
+            >
               <div className="BoardList_contents">
                 <p className="boardListTitle">{data.BOARD_TITLE}</p>
                 <p className="boardListId">Written by {data.REGISTER_ID}</p>
