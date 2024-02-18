@@ -9,6 +9,8 @@ const PORT = process.env.port || 8000;
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 
+require("dotenv").config();
+
 app.use(cors());
 app.use(express.json());
 
@@ -17,10 +19,10 @@ app.listen(PORT, () => {
 });
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "ssunny0203",
-  database: "bbs",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 });
 
 app.get("/", (req, res) => {
@@ -67,13 +69,13 @@ app.post("/sendVerificationEmail", async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "no.reply.ssunnyauth@gmail.com",
-      pass: "pokhbrrrugttrptf",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   let mailOptions = {
-    from: "no.reply.ssunnyauth@gmail.com",
+    from: process.env.EMAIL_USER,
     to: email,
     subject: "Email Verification",
     text:
@@ -211,6 +213,18 @@ app.get("/download/:filename", function (req, res) {
     if (err) {
       res.status(500).send("File download failed.");
     } else {
+    }
+  });
+});
+
+app.delete("/boardDelete/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("DELETE FROM board WHERE BOARD_ID = ?", [id], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while deleting post" });
+    } else {
+      res.status(200).json({ message: "success" });
     }
   });
 });
