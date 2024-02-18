@@ -87,10 +87,8 @@ app.post("/sendVerificationEmail", async (req, res) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
       res.status(500).send("Error while sending email");
     } else {
-      console.log("Email sent: " + info.response);
       res.send("Email sent");
     }
   });
@@ -195,10 +193,8 @@ app.get("/board/:id", (req, res) => {
           .json({ error: "An error occurred while fetching data" });
       } else {
         if (results.length === 0) {
-          console.log(`No board found with id: ${boardId}`);
           res.status(404).json({ error: "No board found" });
         } else {
-          console.log(`Board found: `, results[0]);
           res.status(200).json(results[0]);
         }
       }
@@ -213,10 +209,8 @@ app.get("/download/:filename", function (req, res) {
 
   res.download(filePath, filename, function (err) {
     if (err) {
-      console.log(err);
       res.status(500).send("File download failed.");
     } else {
-      console.log("File downloaded.");
     }
   });
 });
