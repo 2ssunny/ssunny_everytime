@@ -29,7 +29,7 @@ function App() {
         </Route>
         <Route path="board">
           <Route path="" element={<BoardList />} />
-          <Route path="view/:no" element={<BoardView />} />
+          <Route path="view/:boardId" element={<BoardView />} />
           <Route path="post" element={<BoardPost />} />
         </Route>
         <Route path="*" element={<NotFound />} />
