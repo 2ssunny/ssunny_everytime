@@ -53,7 +53,9 @@ function App() {
           <p>Download: </p>
           {JSON.parse(board.FILES).map((file, index) => (
             <div key={index}>
-              <a href={`http://localhost:8000/download/${file}`}>{file}</a>
+              <a href={`${process.env.REACT_APP_SERVER}/download/${file}`}>
+                {file}
+              </a>{" "}
             </div>
           ))}
         </div>

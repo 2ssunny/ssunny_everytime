@@ -21,7 +21,7 @@ function App() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/checkDuplicate",
+        `${process.env.REACT_APP_SERVER}/checkDuplicate`,
         { email, username }
       );
       if (response.data.duplicate === "noneDuplicate") {
@@ -39,7 +39,7 @@ function App() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/sendVerificationEmail",
+        `${process.env.REACT_APP_SERVER}/sendVerificationEmail`,
         { email }
       );
       setServerVerificationCode(response.data.verifyCode);
@@ -81,11 +81,14 @@ function App() {
       duplicate === false &&
       emailVerify === true
     ) {
-      const response = await axios.post("http://localhost:8000/register", {
-        email,
-        password,
-        username,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER}/register`,
+        {
+          email,
+          password,
+          username,
+        }
+      );
       if (response.data.message === "success") {
         alert("Register success");
         handleClickHome();
