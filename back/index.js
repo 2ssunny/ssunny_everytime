@@ -3,6 +3,7 @@ const app = express();
 const mysql = require("mysql");
 const multer = require("multer");
 const path = require("path");
+const morgan = require("morgan");
 
 const PORT = process.env.port || 8000;
 
@@ -13,9 +14,10 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 
-app.listen(PORT, () => {
-  console.log(`running on port ${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 const db = mysql.createConnection({
