@@ -9,6 +9,7 @@ const PORT = process.env.port || 8000;
 
 const cors = require("cors");
 const nodemailer = require("nodemailer");
+const fs = require("fs").promises;
 
 require("dotenv").config();
 
@@ -170,7 +171,7 @@ app.post("/boardUpload", upload.array("files", 5), (req, res) => {
   const body = req.body.body;
   const username = req.body.username;
 
-  const fileNames = req.files.map((file) => file.filename); // 변경된 파일 이름을 사용합니다.
+  const fileNames = req.files.map((file) => file.filename);
 
   db.query(
     "INSERT INTO board (BOARD_TITLE, BOARD_CONTENT, REGISTER_ID, FILES) VALUES (?, ?, ?, ?)",
@@ -220,14 +221,46 @@ app.get("/download/:filename", function (req, res) {
   });
 });
 
-app.delete("/boardDelete/:id", (req, res) => {
+app.delete("/boardDelete/:id", async (req, res) => {
   const id = req.params.id;
-  db.query("DELETE FROM board WHERE BOARD_ID = ?", [id], (error, results) => {
-    if (error) {
-      console.error(error);
-      res.status(500).json({ error: "An error occurred while deleting post" });
-    } else {
-      res.status(200).json({ message: "success" });
+
+  db.query(
+    "SELECT FILES FROM board WHERE BOARD_ID = ?",
+    [id],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while retrieving file names" });
+      } else {
+        const files = JSON.parse(results[0].FILES);
+        Promise.all(
+          files.map((file) => fs.unlink(path.join(__dirname, "uploads", file)))
+        )
+          .then(() => {
+            db.query(
+              "DELETE FROM board WHERE BOARD_ID = ?",
+              [id],
+              (error, results) => {
+                if (error) {
+                  console.error(error);
+                  res
+                    .status(500)
+                    .json({ error: "An error occurred while deleting post" });
+                } else {
+                  res.status(200).json({ message: "success" });
+                }
+              }
+            );
+          })
+          .catch((err) => {
+            console.error(err);
+            res
+              .status(500)
+              .json({ error: "An error occurred while deleting files" });
+          });
+      }
     }
-  });
+  );
 });
