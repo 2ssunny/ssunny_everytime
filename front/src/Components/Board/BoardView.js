@@ -62,9 +62,9 @@ function App() {
               className="boardview_image"
             />
           ))}
+          <p className="boardview_space_nextimage"></p>
         </div>
       )}
-      <p className="boardview_space_nextimage"></p>
 
       {board.FILES && files.length > 0 && (
         <div className="boardview_fileDownload">
