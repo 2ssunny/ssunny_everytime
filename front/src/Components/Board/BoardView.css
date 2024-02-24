@@ -36,6 +36,18 @@
   margin-top: 0.5rem;
   word-wrap: break-word;
 }
+.boardview_image {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.boardview_space_nextimage {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  border-top: black 0.1rem solid;
+}
 
 .boardview_fileDownload {
   font-size: 0.8rem;

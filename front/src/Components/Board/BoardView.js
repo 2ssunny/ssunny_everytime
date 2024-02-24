@@ -44,15 +44,32 @@ function App() {
     return <div>Loading...</div>;
   }
   const username = nowBoardViewUsername || nowBoardViewUsernameSession;
+  const files = JSON.parse(board.FILES);
+  const imageIndexes = board.imageIndexes || [];
+  const imageFiles = imageIndexes.map((index) => files[index]);
   return (
     <div className="boardview">
       <h1 className="boardview_title">{board.BOARD_TITLE}</h1>
       <p className="boardview_content">{board.BOARD_CONTENT}</p>
 
-      {board.FILES && JSON.parse(board.FILES).length > 0 && (
+      {imageFiles.length > 0 && (
+        <div className="boardview_images">
+          {imageFiles.map((file, index) => (
+            <img
+              key={index}
+              src={`${process.env.REACT_APP_SERVER}/download/${file}`}
+              alt={file}
+              className="boardview_image"
+            />
+          ))}
+        </div>
+      )}
+      <p className="boardview_space_nextimage"></p>
+
+      {board.FILES && files.length > 0 && (
         <div className="boardview_fileDownload">
           <p>Download: </p>
-          {JSON.parse(board.FILES).map((file, index) => (
+          {files.map((file, index) => (
             <div key={index}>
               <a href={`${process.env.REACT_APP_SERVER}/download/${file}`}>
                 {file}

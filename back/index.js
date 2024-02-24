@@ -201,7 +201,20 @@ app.get("/board/:id", (req, res) => {
         if (results.length === 0) {
           res.status(404).json({ error: "No board found" });
         } else {
-          res.status(200).json(results[0]);
+          const result = results[0];
+          const files = JSON.parse(result.FILES);
+          const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+          const imageIndexes = [];
+
+          files.forEach((file, index) => {
+            const extension = file.split(".").pop().toLowerCase();
+            if (imageExtensions.includes(extension)) {
+              imageIndexes.push(index);
+            }
+          });
+
+          result.imageIndexes = imageIndexes;
+          res.status(200).json(result);
         }
       }
     }
