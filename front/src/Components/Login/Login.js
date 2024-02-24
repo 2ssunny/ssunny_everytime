@@ -7,6 +7,7 @@ import axios from "axios";
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [keeplogged, setKeeplogged] = useState(false);
 
   const { handleClickHome, handleClickRegister } = Navigation();
 
@@ -18,8 +19,13 @@ function App() {
       password,
     });
     if (response.data.message === "success") {
-      localStorage.setItem("Username", response.data.username);
-      alert("Login successful. Going to the home page.");
+      if (keeplogged === true) {
+        localStorage.setItem("Username", response.data.username);
+        alert("Login successful. Going to the home page.");
+      } else if (keeplogged === false) {
+        sessionStorage.setItem("Username", response.data.username);
+        alert("Login successful. Going to the home page.");
+      }
 
       window.location.href = "/";
     } else {
@@ -53,6 +59,15 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </label>
+            <p className="space"></p>
+            <label>
+              <input
+                type="checkbox"
+                className="login_button"
+                onClick={() => setKeeplogged(true)}
+              />
+              <span>Keep logged in</span>
             </label>
             <p className="space"></p>
             <button className="login_button" onClick={handleLogin}>

@@ -7,6 +7,7 @@ import { Navigation } from "../../navigation.js";
 import "./BoardView.css";
 
 const nowBoardViewUsername = localStorage.getItem("Username");
+const nowBoardViewUsernameSession = sessionStorage.getItem("Username");
 
 function App() {
   const { boardId } = useParams();
@@ -42,7 +43,7 @@ function App() {
   if (!board) {
     return <div>Loading...</div>;
   }
-
+  const username = nowBoardViewUsername || nowBoardViewUsernameSession;
   return (
     <div className="boardview">
       <h1 className="boardview_title">{board.BOARD_TITLE}</h1>
@@ -63,7 +64,7 @@ function App() {
       <p>
         Written at {board.REGISTER_DATE} by {board.REGISTER_ID}
       </p>
-      {nowBoardViewUsername === board.REGISTER_ID ? (
+      {username === board.REGISTER_ID ? (
         <button onClick={() => handleDeletePost(boardId)}>Delete</button>
       ) : null}
       <button onClick={handleClickBoard}>Back</button>

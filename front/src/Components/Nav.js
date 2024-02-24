@@ -10,7 +10,6 @@ function App() {
     handleClickHome,
     handleClickAbout,
     handleClickLogin,
-    handleClickTimetableCheck,
     handleClickBoard,
   } = Navigation();
 
@@ -21,7 +20,9 @@ function App() {
   };
 
   const nowNavUsername = localStorage.getItem("Username");
+  const nowNavUsernameSession = sessionStorage.getItem("Username");
 
+  const username = nowNavUsername || nowNavUsernameSession;
   return (
     <div>
       <header className="nav_header">
@@ -41,7 +42,7 @@ function App() {
           Board
         </span>
 
-        {nowNavUsername ? (
+        {username ? (
           <span className="nav_text" onClick={handleLogout}>
             Logout
           </span>

@@ -5,8 +5,10 @@ import axios from "axios";
 import "./BoardPost.css";
 
 const nowBoardPostUsername = localStorage.getItem("Username");
+const nowBoardPostUsernameSession = sessionStorage.getItem("Username");
 
 function App() {
+  const username = nowBoardPostUsername || nowBoardPostUsernameSession;
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [files, setFiles] = useState([]);
@@ -22,7 +24,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!nowBoardPostUsername) {
+    if (!username) {
       alert("Login to post");
       return;
     }
@@ -35,7 +37,7 @@ function App() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("body", body);
-    formData.append("username", nowBoardPostUsername);
+    formData.append("username", username);
     for (let i = 0; i < files.length; i++) {
       formData.append("files", files[i]);
     }
@@ -83,9 +85,7 @@ function App() {
             <input type="file" multiple onChange={handleFileChange} />
           </label>
 
-          <p className="boardpost_username">
-            Positng as {nowBoardPostUsername}
-          </p>
+          <p className="boardpost_username">Positng as {username}</p>
           <button type="submit">Submit</button>
         </div>
       </form>

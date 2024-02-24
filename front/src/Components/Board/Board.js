@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { Navigation } from "../../navigation.js";
 
 const nowBoardUsername = localStorage.getItem("Username");
+const nowBoardUsernameSession = sessionStorage.getItem("Username");
 
 function App() {
+  const username = nowBoardUsername || nowBoardUsernameSession;
   const navigate = useNavigate();
   const [boardData, setBoardData] = useState([]);
 
@@ -25,7 +27,7 @@ function App() {
   }, []);
 
   const handleBoardView = (boardId) => {
-    if (nowBoardUsername) {
+    if (username) {
       navigate(`/board/view/${boardId}`);
     } else {
       alert("Login to view the post");
@@ -35,7 +37,7 @@ function App() {
   return (
     <div className="board">
       <h1 className="board_title">Board</h1>
-      {nowBoardUsername ? (
+      {username ? (
         <button className="boardWrite" onClick={handleClickBoardPost}>
           Write
         </button>
