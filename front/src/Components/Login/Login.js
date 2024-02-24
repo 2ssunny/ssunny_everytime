@@ -64,12 +64,11 @@ function App() {
             <label>
               <input
                 type="checkbox"
-                className="login_button"
+                className="login_checkbox"
                 onClick={() => setKeeplogged(true)}
               />
               <span>Keep logged in</span>
             </label>
-            <p className="space"></p>
             <button className="login_button" onClick={handleLogin}>
               Login
             </button>
