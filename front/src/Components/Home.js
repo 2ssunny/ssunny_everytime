@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./Home.css";
+import axios from "axios";
 
 const nowHomeUsername = localStorage.getItem("Username");
 const nowHomeUsernameSession = sessionStorage.getItem("Username");
 
 function App() {
   const username = nowHomeUsername || nowHomeUsernameSession;
+
+  useEffect(() => {
+    if (username) {
+      axios.delete(
+        `${process.env.REACT_APP_SERVER}/scheduleDelete/${username}`
+      );
+    }
+  }, [username]);
   return (
     <div>
       <header className="home_header">

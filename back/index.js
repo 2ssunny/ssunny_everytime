@@ -277,3 +277,31 @@ app.delete("/boardDelete/:id", async (req, res) => {
     }
   );
 });
+
+app.get("/scheduleList", (req, res) => {
+  const username = req.query.username;
+  const sqlQuery =
+    "SELECT scheduleName, DATE_FORMAT(startDateTime, '%Y-%m-%d %T') AS startDateTime FROM schedule WHERE username=?;";
+  db.query(sqlQuery, [username], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.delete("/scheduleDelete/:username", (req, res) => {
+  const username = req.params.username;
+  const nowDate = new Date();
+  db.query(
+    "DELETE FROM schedule WHERE username = ? AND finishDateTime < ? ",
+    [username, nowDate],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while deleting schedule" });
+      } else {
+        res.status(200).json({ message: "success" });
+      }
+    }
+  );
+});

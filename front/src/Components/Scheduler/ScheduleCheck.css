@@ -1,0 +1,51 @@
+.schedule_title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: black;
+  text-align: center;
+  margin-top: 1rem;
+  border-bottom: black 0.1rem solid;
+  padding-bottom: 0rem;
+}
+.scheduleupload {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.ScheduleItem {
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: bisque;
+  border-radius: 1rem;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 100%;
+  background-color: beige;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.scheduleListTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
