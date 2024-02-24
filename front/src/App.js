@@ -5,11 +5,11 @@ import Home from "./Components/Home.js";
 import About from "./Components/About.js";
 import Register from "./Components/Login/Register.js";
 import Login from "./Components/Login/Login.js";
-import TimetableCheck from "./Components/Timetable/TimetableCheck.js";
-import TimetableSet from "./Components/Timetable/TimetableSet.js";
 import BoardList from "./Components/Board/Board.js";
 import BoardView from "./Components/Board/BoardView.js";
 import BoardPost from "./Components/Board/BoardPost.js";
+import ScheduleCheck from "./Components/Scheduler/ScheduleCheck.js";
+import ScheduleUpload from "./Components/Scheduler/ScheduleUpload.js";
 import NotFound from "./NotFound.js";
 
 function App() {
@@ -23,9 +23,9 @@ function App() {
           <Route path="" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
-        <Route path="timetable">
-          <Route path="" element={<TimetableCheck />} />
-          <Route path="set" element={<TimetableSet />} />
+        <Route path="schedule">
+          <Route path="" element={<ScheduleCheck />} />
+          <Route path="upload" element={<ScheduleUpload />} />
         </Route>
         <Route path="board">
           <Route path="" element={<BoardList />} />

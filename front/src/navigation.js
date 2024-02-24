@@ -19,14 +19,6 @@ export function Navigation() {
     navigate("/login/register");
   };
 
-  const handleClickTimetableCheck = (e) => {
-    navigate("/timetable");
-  };
-
-  const handleClickTimetableSet = (e) => {
-    navigate("/timetable/set");
-  };
-
   const handleClickBoard = (e) => {
     navigate("/board");
   };
@@ -35,14 +27,21 @@ export function Navigation() {
     navigate("/board/post");
   };
 
+  const handleClickScheduleCheck = (e) => {
+    navigate("/schedule");
+  };
+
+  const handleClickScheduleUpload = (e) => {
+    navigate("/schedule/upload");
+  };
   return {
     handleClickHome,
     handleClickAbout,
     handleClickLogin,
     handleClickRegister,
-    handleClickTimetableCheck,
-    handleClickTimetableSet,
     handleClickBoard,
     handleClickBoardPost,
+    handleClickScheduleCheck,
+    handleClickScheduleUpload,
   };
 }
