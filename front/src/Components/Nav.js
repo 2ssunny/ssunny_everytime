@@ -14,7 +14,8 @@ function App() {
   } = Navigation();
 
   const handleLogout = () => {
-    localStorage.removeItem("Username");
+    localStorage.clear();
+    sessionStorage.clear();
     window.location.reload();
     alert("Logout successful");
   };
