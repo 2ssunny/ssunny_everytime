@@ -85,7 +85,7 @@ function App() {
             <input type="file" multiple onChange={handleFileChange} />
           </label>
 
-          <p className="boardpost_username">Positng as {username}</p>
+          <p className="boardpost_username">Posting as {username}</p>
           <button type="submit">Submit</button>
         </div>
       </form>
