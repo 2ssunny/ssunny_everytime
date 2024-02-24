@@ -44,7 +44,7 @@ function App() {
           </button>
         </div>
       ) : (
-        <p>Login to upload schedule</p>
+        <p>Login to use schedule feature</p>
       )}
 
       {!scheduleData ? (
@@ -58,6 +58,9 @@ function App() {
                   <p className="scheduleListTitle">{data.scheduleName}</p>
                   <p className="boardListStartDate">
                     Starts at {data.startDateTime}
+                  </p>
+                  <p className="boardListEndDate">
+                    Until {data.finishDateTime}
                   </p>
                 </div>
               </div>
