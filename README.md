@@ -6,4 +6,17 @@
   - env파일 백업
 - Back
   - env파일 백업
-  - uploads폴더 꼭 백업!!!!!
+  - uploads폴더 꼭 백업!!!!!(빨리빨리 AWS S3 연결합시다)
+ 
+##
+# 사용 스택
+- Front
+  - React.js(express to serve)
+  - npm
+- Back
+  - Node.js(express)
+  - npm
+- Server
+  - AWS EC2(1 instance for each server, front and back)
+- Database
+  - MySql(AWS RDS)
