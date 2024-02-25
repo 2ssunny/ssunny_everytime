@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     if (username) {
       axios.delete(
-        `${process.env.REACT_APP_SERVER}/scheduleDelete/${username}`
+        `${process.env.REACT_APP_SERVER}/scheduleDeleteExpired/${username}`
       );
     }
   }, [username]);

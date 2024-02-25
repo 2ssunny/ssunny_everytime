@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "./ScheduleCheck.css";
 
@@ -9,7 +10,8 @@ const nowScheduleUsername = localStorage.getItem("Username");
 const nowScheduleUsernameSession = sessionStorage.getItem("Username");
 
 function App() {
-  const username = nowScheduleUsername || nowScheduleUsernameSession;
+  const navigate = useNavigate();
+  const scheduleUsername = nowScheduleUsername || nowScheduleUsernameSession;
 
   const { handleClickScheduleUpload } = Navigation();
 
@@ -18,7 +20,7 @@ function App() {
     axios
       .get(`${process.env.REACT_APP_SERVER}/scheduleList`, {
         params: {
-          username: username,
+          username: scheduleUsername,
         },
       })
       .then((res) => {
@@ -29,13 +31,18 @@ function App() {
           setScheduleData([]);
         }
       });
-  }, [username]);
+  }, [scheduleUsername]);
 
+  const handleClickScheduleView = (scheduleID, username) => {
+    if (username === scheduleUsername) {
+      navigate(`/schedule/view/${scheduleID}`);
+    }
+  };
   return (
     <div>
-      {username ? (
+      {scheduleUsername ? (
         <div className="schedule_title">
-          <h1>Welcome to your schedule page, {username}!</h1>
+          <h1>Welcome to your schedule page, {scheduleUsername}!</h1>
           <button
             className="scheduleupload"
             onClick={handleClickScheduleUpload}
@@ -44,7 +51,7 @@ function App() {
           </button>
         </div>
       ) : (
-        <p>Login to use schedule feature</p>
+        <h1 className="schedule_title">Login to use schedule feature</h1>
       )}
 
       {!scheduleData ? (
@@ -53,7 +60,13 @@ function App() {
         <div className="ScheduleItem">
           {scheduleData.map((data, index) => {
             return (
-              <div key={index} className="scheduleList">
+              <div
+                key={index}
+                className="scheduleList"
+                onClick={() =>
+                  handleClickScheduleView(data.scheduleID, data.username)
+                }
+              >
                 <div className="scheduleList_contents">
                   <p className="scheduleListTitle">{data.scheduleName}</p>
                   <p className="boardListStartDate">

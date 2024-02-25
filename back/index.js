@@ -281,13 +281,13 @@ app.delete("/boardDelete/:id", async (req, res) => {
 app.get("/scheduleList", (req, res) => {
   const username = req.query.username;
   const sqlQuery =
-    "SELECT scheduleName, DATE_FORMAT(startDateTime, '%Y-%m-%d %T') AS startDateTime, DATE_FORMAT(finishDateTime, '%Y-%m-%d %T') AS finishDateTime FROM schedule WHERE username=?;";
+    "SELECT username, scheduleID, scheduleName, DATE_FORMAT(startDateTime, '%Y-%m-%d %T') AS startDateTime, DATE_FORMAT(finishDateTime, '%Y-%m-%d %T') AS finishDateTime FROM schedule WHERE username=?;";
   db.query(sqlQuery, [username], (err, result) => {
     res.send(result);
   });
 });
 
-app.delete("/scheduleDelete/:username", (req, res) => {
+app.delete("/scheduleDeleteExpired/:username", (req, res) => {
   const username = req.params.username;
   const nowDate = new Date();
   db.query(
@@ -331,4 +331,22 @@ app.post("/scheduleUpload", (req, res) => {
       }
     }
   );
+});
+
+app.get("/schedule/:id", (req, res) => {
+  const scheduleId = req.params.id;
+
+  const sqlQuery =
+    "SELECT username, scheduleName, scheduleContent, DATE_FORMAT(startDateTime, '%Y-%m-%d %T') AS startDateTime, DATE_FORMAT(finishDateTime, '%Y-%m-%d %T') AS finishDateTime, DATE_FORMAT(updateDate, '%Y-%m-%d %T') AS updateDate FROM schedule WHERE scheduleId = ?";
+
+  db.query(sqlQuery, [scheduleId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ error: "An error occurred while retrieving schedule" });
+    } else {
+      res.send(result);
+    }
+  });
 });
