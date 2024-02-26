@@ -402,3 +402,27 @@ app.get("/schedule/:id", (req, res) => {
     }
   });
 });
+
+app.post("/scheduleEdit/:id", (req, res) => {
+  const id = req.params.id;
+  const title = req.body.scheduleName;
+  const body = req.body.scheduleContent;
+  const startDateTime = req.body.startDateTime;
+  const finishDateTime = req.body.endDateTime;
+  const nowDatetime = new Date();
+
+  db.query(
+    "UPDATE schedule SET scheduleName = ?, scheduleContent = ?, startDateTime = ?, finishDateTime = ?, updateDate =? WHERE scheduleId = ?",
+    [title, body, startDateTime, finishDateTime, nowDatetime, id],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while updating schedule" });
+      } else {
+        res.status(200).json({ message: "success" });
+      }
+    }
+  );
+});

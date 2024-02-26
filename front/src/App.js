@@ -12,6 +12,7 @@ import BoardEdit from "./Components/Board/BoardEdit.js";
 import ScheduleCheck from "./Components/Scheduler/ScheduleCheck.js";
 import ScheduleUpload from "./Components/Scheduler/ScheduleUpload.js";
 import ScheduleView from "./Components/Scheduler/ScheduleView.js";
+import ScheduleUpdate from "./Components/Scheduler/ScheduleUpdate.js";
 import NotFound from "./NotFound.js";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="schedule">
           <Route path="" element={<ScheduleCheck />} />
           <Route path="view/:scheduleId" element={<ScheduleView />} />
+          <Route path="edit/:scheduleId" element={<ScheduleUpdate />} />
           <Route path="upload" element={<ScheduleUpload />} />
         </Route>
         <Route path="board">

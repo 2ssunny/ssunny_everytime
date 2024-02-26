@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Navigation } from "../../navigation.js";
 
@@ -10,6 +11,7 @@ const nowScheduleViewUsername = localStorage.getItem("Username");
 const nowScheduleViewUsernameSession = sessionStorage.getItem("Username");
 
 function App() {
+  const navigate = useNavigate();
   const { scheduleId } = useParams();
   const [schedule, setSchedule] = useState(null);
 
@@ -56,6 +58,11 @@ function App() {
   const handleButtonClickSchedule = () => {
     handleClickScheduleCheck();
   };
+
+  const handleUpdateSchedule = () => {
+    navigate(`/schedule/edit/${scheduleId}`);
+  };
+
   return (
     <div className="scheduleview">
       <h1 className="scheduleview_title">{schedule[0].scheduleName}</h1>
@@ -63,12 +70,24 @@ function App() {
       <p className="scheduleview_date">Stars at {schedule[0].startDateTime}</p>
       <p className="scheduleview_date">Ends at {schedule[0].finishDateTime}</p>
       <p className="scheduleview_register">
-        Registered at {schedule[0].updateDate}
+        Updated at {schedule[0].updateDate}
       </p>
+
       {username === schedule[0].username && (
-        <button className="scheduleview_delete" onClick={handleDeleteSchedule}>
-          Delete
-        </button>
+        <div>
+          <button
+            className="scheduleview_delete"
+            onClick={handleDeleteSchedule}
+          >
+            Delete
+          </button>
+          <button
+            className="scheduleview_update"
+            onClick={handleUpdateSchedule}
+          >
+            Edit
+          </button>
+        </div>
       )}
       <button onClick={handleButtonClickSchedule}>back</button>
     </div>
