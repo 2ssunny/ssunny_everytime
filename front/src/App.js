@@ -8,6 +8,7 @@ import Login from "./Components/Login/Login.js";
 import BoardList from "./Components/Board/Board.js";
 import BoardView from "./Components/Board/BoardView.js";
 import BoardPost from "./Components/Board/BoardPost.js";
+import BoardEdit from "./Components/Board/BoardEdit.js";
 import ScheduleCheck from "./Components/Scheduler/ScheduleCheck.js";
 import ScheduleUpload from "./Components/Scheduler/ScheduleUpload.js";
 import ScheduleView from "./Components/Scheduler/ScheduleView.js";
@@ -32,6 +33,7 @@ function App() {
         <Route path="board">
           <Route path="" element={<BoardList />} />
           <Route path="view/:boardId" element={<BoardView />} />
+          <Route path="edit/:boardId" element={<BoardEdit />} />
           <Route path="post" element={<BoardPost />} />
         </Route>
         <Route path="*" element={<NotFound />} />

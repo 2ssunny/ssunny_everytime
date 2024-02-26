@@ -55,9 +55,13 @@ function App() {
               <div className="BoardList_contents">
                 <p className="boardListTitle">{data.BOARD_TITLE}</p>
                 <p className="boardListId">Written by {data.REGISTER_ID}</p>
+
                 <p className="boardListDate">
                   Uploaded at {data.REGISTER_DATE}
                 </p>
+                {data.REGISTER_DATE === data.UPDATE_DATE ? null : (
+                  <p className="boardListDate">Updated at {data.UPDATE_DATE}</p>
+                )}
               </div>
             </div>
           );

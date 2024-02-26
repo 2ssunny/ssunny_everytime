@@ -146,7 +146,7 @@ app.post("/login", (req, res) => {
 
 app.get("/boardList", (req, res) => {
   const sqlQuery =
-    "SELECT BOARD_ID, BOARD_TITLE, REGISTER_ID, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d') AS REGISTER_DATE FROM board;";
+    "SELECT BOARD_ID, BOARD_TITLE, REGISTER_ID, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d') AS REGISTER_DATE, DATE_FORMAT(UPDATE_DATE, '%Y-%m-%d') AS UPDATE_DATE FROM board;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -189,7 +189,7 @@ app.post("/boardUpload", upload.array("files", 5), (req, res) => {
 app.get("/board/:id", (req, res) => {
   const boardId = req.params.id;
   db.query(
-    "SELECT BOARD_TITLE, BOARD_CONTENT, REGISTER_ID, REGISTER_DATE, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d %T') AS REGISTER_DATE, FILES FROM board WHERE BOARD_ID = ?",
+    "SELECT BOARD_TITLE, BOARD_CONTENT, REGISTER_ID, REGISTER_DATE, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d %T') AS REGISTER_DATE, DATE_FORMAT(UPDATE_DATE, '%Y-%m-%d %T') AS UPDATE_DATE, FILES FROM board WHERE BOARD_ID = ?",
     [boardId],
     (error, results) => {
       if (error) {
@@ -232,6 +232,58 @@ app.get("/download/:filename", function (req, res) {
     } else {
     }
   });
+});
+app.post("/boardEdit/:id", upload.array("files", 5), (req, res) => {
+  const id = req.params.id;
+  const title = req.body.title;
+  const body = req.body.body;
+  const files = req.files;
+  const fileNames = files.map((file) => file.filename);
+
+  const nowDate = new Date();
+
+  db.query(
+    "SELECT FILES FROM board WHERE BOARD_ID = ?",
+    [id],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while retrieving file names" });
+      } else {
+        const previousFiles = JSON.parse(results[0].FILES);
+
+        Promise.all(
+          previousFiles.map((file) =>
+            fs.unlink(path.join(__dirname, "uploads", file))
+          )
+        )
+          .then(() => {
+            db.query(
+              "UPDATE board SET BOARD_TITLE = ?, BOARD_CONTENT = ?, FILES = ?, UPDATE_DATE =? WHERE BOARD_ID = ?",
+              [title, body, JSON.stringify(fileNames), nowDate, id],
+              (error, results) => {
+                if (error) {
+                  console.error(error);
+                  res
+                    .status(500)
+                    .json({ error: "An error occurred while updating post" });
+                } else {
+                  res.status(200).json({ message: "success" });
+                }
+              }
+            );
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).json({
+              error: "An error occurred while deleting previous files",
+            });
+          });
+      }
+    }
+  );
 });
 
 app.delete("/boardDelete/:id", async (req, res) => {

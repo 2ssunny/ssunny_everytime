@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Navigation } from "../../navigation.js";
 
@@ -10,6 +11,8 @@ const nowBoardViewUsername = localStorage.getItem("Username");
 const nowBoardViewUsernameSession = sessionStorage.getItem("Username");
 
 function App() {
+  const navigate = useNavigate();
+
   const { boardId } = useParams();
   const [board, setBoard] = useState(null);
 
@@ -39,6 +42,14 @@ function App() {
 
     fetchBoard();
   }, [boardId]);
+
+  const handleBoardEdit = (boardId) => {
+    if (username) {
+      navigate(`/board/edit/${boardId}`);
+    } else {
+      alert("Login to view the post");
+    }
+  };
 
   if (!board) {
     return <div>Loading...</div>;
@@ -81,8 +92,16 @@ function App() {
       <p>
         Written at {board.REGISTER_DATE} by {board.REGISTER_ID}
       </p>
+      {board.REGISTER_DATE === board.UPDATE_DATE ? null : (
+        <p>
+          Updated at {board.UPDATE_DATE} by {board.REGISTER_ID}
+        </p>
+      )}
       {username === board.REGISTER_ID ? (
-        <button onClick={() => handleDeletePost(boardId)}>Delete</button>
+        <div>
+          <button onClick={() => handleDeletePost(boardId)}>Delete</button>
+          <button onClick={() => handleBoardEdit(boardId)}>Edit</button>
+        </div>
       ) : null}
       <button onClick={handleClickBoard}>Back</button>
     </div>
