@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-import { Navigation } from "../../navigation.js";
-
 import "./BoardEdit.css";
 
 const nowBoardEditUsername = localStorage.getItem("Username");
@@ -14,8 +12,6 @@ function App() {
 
   const { boardId } = useParams();
 
-  const [boardBeforeData, setBoardBeforeData] = useState([]);
-
   const [titleEdit, setTitleEdit] = useState("");
   const [bodyEdit, setBodyEdit] = useState("");
   const [filesEdit, setFilesEdit] = useState([]);
@@ -24,7 +20,6 @@ function App() {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER}/board/${boardId}`
       );
-      setBoardBeforeData(response.data);
       setTitleEdit(response.data.BOARD_TITLE);
       setBodyEdit(response.data.BOARD_CONTENT);
     };
