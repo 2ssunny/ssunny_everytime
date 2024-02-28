@@ -231,7 +231,7 @@ app.get("/board/:id", (req, res) => {
         } else {
           const result = results[0];
           const files = JSON.parse(result.FILES);
-          const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+          const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "jfif"];
           const imageIndexes = [];
 
           files.forEach((file, index) => {
