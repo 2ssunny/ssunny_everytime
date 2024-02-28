@@ -84,6 +84,7 @@ function App() {
             Files:
             <input type="file" multiple onChange={handleFileChange} />
           </label>
+          <p>If the file name includes Korean, the Korean will look weird.</p>
 
           <p className="boardpost_username">Posting as {username}</p>
           <button type="submit">Submit</button>

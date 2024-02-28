@@ -1,15 +1,19 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
+
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs").promises;
+
 const morgan = require("morgan");
-
-const PORT = process.env.port || 8000;
-
 const cors = require("cors");
 const nodemailer = require("nodemailer");
-const fs = require("fs").promises;
+
+const AWS = require("aws-sdk");
+const multerS3 = require("multer-s3");
+
+const PORT = process.env.port || 8000;
 
 require("dotenv").config();
 
@@ -152,7 +156,8 @@ app.get("/boardList", (req, res) => {
   });
 });
 
-const storage = multer.diskStorage({
+/*
+const storage_leagcy = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "uploads"));
   },
@@ -163,19 +168,41 @@ const storage = multer.diskStorage({
     cb(null, originalNameWithoutExtension + "-" + uniqueSuffix + extension);
   },
 });
+*/
 
-const upload = multer({ storage: storage });
+AWS.config.update({
+  region: process.env.AWS_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
+const s3 = new AWS.S3();
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.AWS_BUCKET_NAME,
+    acl: "public-read",
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      cb(null, `${uniqueSuffix}-${file.originalname}`);
+    },
+  }),
+});
 
 app.post("/boardUpload", upload.array("files", 5), (req, res) => {
   const title = req.body.title;
   const body = req.body.body;
   const username = req.body.username;
 
-  const fileNames = req.files.map((file) => file.filename);
+  const fileKeys = req.files.map((file) => file.key);
 
   db.query(
     "INSERT INTO board (BOARD_TITLE, BOARD_CONTENT, REGISTER_ID, FILES) VALUES (?, ?, ?, ?)",
-    [title, body, username, JSON.stringify(fileNames)],
+    [title, body, username, JSON.stringify(fileKeys)],
     (error, results) => {
       if (error) {
         console.error(error);
@@ -186,6 +213,7 @@ app.post("/boardUpload", upload.array("files", 5), (req, res) => {
     }
   );
 });
+
 app.get("/board/:id", (req, res) => {
   const boardId = req.params.id;
   db.query(
@@ -223,22 +251,33 @@ app.get("/board/:id", (req, res) => {
 
 app.get("/download/:filename", function (req, res) {
   const filename = req.params.filename;
-  const fileDirectory = path.resolve(__dirname, "uploads");
-  const filePath = path.join(fileDirectory, filename);
 
-  res.download(filePath, filename, function (err) {
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: filename,
+  };
+
+  s3.getObject(params, (err, data) => {
     if (err) {
+      console.error(err);
       res.status(500).send("File download failed.");
     } else {
+      res.set({
+        "Content-Type": data.ContentType,
+        "Content-Disposition": "attachment; filename=" + filename,
+      });
+      res.send(data.Body);
     }
   });
 });
+
 app.post("/boardEdit/:id", upload.array("files", 5), (req, res) => {
   const id = req.params.id;
   const title = req.body.title;
   const body = req.body.body;
   const files = req.files;
-  const fileNames = files.map((file) => file.filename);
+  const fileKeys = files.map((file) => file.key);
+  const fileNames = files.map((file) => file.originalname);
 
   const nowDate = new Date();
 
@@ -255,14 +294,27 @@ app.post("/boardEdit/:id", upload.array("files", 5), (req, res) => {
         const previousFiles = JSON.parse(results[0].FILES);
 
         Promise.all(
-          previousFiles.map((file) =>
-            fs.unlink(path.join(__dirname, "uploads", file))
-          )
+          previousFiles.map((file) => {
+            const params = {
+              Bucket: process.env.AWS_BUCKET_NAME,
+              Key: file,
+            };
+            return new Promise((resolve, reject) => {
+              s3.deleteObject(params, function (err, data) {
+                if (err) {
+                  console.log(err, err.stack);
+                  reject(err);
+                } else {
+                  resolve(data);
+                }
+              });
+            });
+          })
         )
           .then(() => {
             db.query(
               "UPDATE board SET BOARD_TITLE = ?, BOARD_CONTENT = ?, FILES = ?, UPDATE_DATE =? WHERE BOARD_ID = ?",
-              [title, body, JSON.stringify(fileNames), nowDate, id],
+              [title, body, JSON.stringify(fileKeys), nowDate, id],
               (error, results) => {
                 if (error) {
                   console.error(error);
@@ -285,7 +337,6 @@ app.post("/boardEdit/:id", upload.array("files", 5), (req, res) => {
     }
   );
 });
-
 app.delete("/boardDelete/:id", async (req, res) => {
   const id = req.params.id;
 
@@ -301,7 +352,22 @@ app.delete("/boardDelete/:id", async (req, res) => {
       } else {
         const files = JSON.parse(results[0].FILES);
         Promise.all(
-          files.map((file) => fs.unlink(path.join(__dirname, "uploads", file)))
+          files.map((file) => {
+            const params = {
+              Bucket: process.env.AWS_BUCKET_NAME,
+              Key: file,
+            };
+            return new Promise((resolve, reject) => {
+              s3.deleteObject(params, function (err, data) {
+                if (err) {
+                  console.log(err, err.stack);
+                  reject(err);
+                } else {
+                  resolve(data);
+                }
+              });
+            });
+          })
         )
           .then(() => {
             db.query(
@@ -310,9 +376,9 @@ app.delete("/boardDelete/:id", async (req, res) => {
               (error, results) => {
                 if (error) {
                   console.error(error);
-                  res
-                    .status(500)
-                    .json({ error: "An error occurred while deleting post" });
+                  res.status(500).json({
+                    error: "An error occurred while deleting the post",
+                  });
                 } else {
                   res.status(200).json({ message: "success" });
                 }
@@ -329,7 +395,6 @@ app.delete("/boardDelete/:id", async (req, res) => {
     }
   );
 });
-
 app.get("/scheduleList", (req, res) => {
   const username = req.query.username;
   const sqlQuery =

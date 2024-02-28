@@ -96,7 +96,7 @@ function App() {
             <input type="file" multiple onChange={handleFileChangeEdit} />
           </label>
           <p>Files uploading now will replace files existed before.</p>
-
+          <p>If the file name includes Korean, the Korean will look weird.</p>
           <button type="submit">Submit</button>
         </div>
       </form>
