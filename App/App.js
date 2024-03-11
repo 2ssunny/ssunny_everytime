@@ -1,26 +1,31 @@
-import { StyleSheet, Text, View, Pressable } from'react-native';
-import { Link } from 'expo-router';
+import * as React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Page from './pages/index.js';
 
+const Stack = createNativeStackNavigator();
 
-export default function App(){
+function HomeScreen({ navigation }) {
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Welcome. Login to use all features.</Text>
-            <Link href="app/index.js">Home</Link>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Home Screen</Text>
+            <Button
+                title="Go to Details"
+                onPress={() => navigation.navigate('Page')}
+            />
         </View>
-    )
+    );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    title: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    }
-})
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Page" component={Page} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
