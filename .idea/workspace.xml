@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/App/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/pages/Navigation/naviagtion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/App/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/App/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/App/package.json" afterDir="false" />
+    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="not versioned expo files">
+      <change beforePath="$PROJECT_DIR$/App/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +147,7 @@
       <workItem from="1710347533774" duration="880000" />
       <workItem from="1710353440626" duration="1151000" />
       <workItem from="1710425242481" duration="1994000" />
-      <workItem from="1710427702489" duration="528000" />
+      <workItem from="1710427702489" duration="789000" />
     </task>
     <task id="LOCAL-00001" summary="App setup">
       <option name="closed" value="true" />
@@ -187,7 +181,31 @@
       <option name="project" value="LOCAL" />
       <updated>1710353590568</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="project directory setup">
+      <option name="closed" value="true" />
+      <created>1710428293594</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1710428293594</updated>
+    </task>
+    <task id="LOCAL-00006" summary="project page files">
+      <option name="closed" value="true" />
+      <created>1710428327358</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1710428327358</updated>
+    </task>
+    <task id="LOCAL-00007" summary="not versioned expo files">
+      <option name="closed" value="true" />
+      <created>1710428377078</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1710428377078</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +229,10 @@
     <MESSAGE value="feat: make main page" />
     <MESSAGE value="feat: app" />
     <MESSAGE value="fix: git conflicy" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: git conflicy" />
+    <MESSAGE value="project directory setup" />
+    <MESSAGE value="project page files" />
+    <MESSAGE value="not versioned expo files" />
+    <option name="LAST_COMMIT_MESSAGE" value="not versioned expo files" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
