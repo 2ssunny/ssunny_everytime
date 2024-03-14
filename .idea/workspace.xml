@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="feat: make main page">
+    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/App/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/pages/Navigation/naviagtion.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/app/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/App/babel.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/App/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/App/package.json" afterDir="false" />
     </list>
@@ -26,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Develop" />
+        <entry key="$PROJECT_DIR$" value="feat/DB-Encryption" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -66,6 +68,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;App&quot;,
@@ -78,6 +82,11 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.rainbow.brackets.indent&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="ReactDesignerToolWindowState">
@@ -93,6 +102,14 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="M:\ssunny_everytime\App\media" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="NodeJSConfigurationType" />
+        <option value="js.build_tools.npm" />
+      </set>
+    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
@@ -131,6 +148,12 @@
       <workItem from="1709826520045" duration="143000" />
       <workItem from="1709826679530" duration="1834000" />
       <workItem from="1709830740900" duration="1072000" />
+      <workItem from="1710182404317" duration="3469000" />
+      <workItem from="1710199708035" duration="2779000" />
+      <workItem from="1710347533774" duration="880000" />
+      <workItem from="1710353440626" duration="1151000" />
+      <workItem from="1710425242481" duration="1994000" />
+      <workItem from="1710427702489" duration="528000" />
     </task>
     <task id="LOCAL-00001" summary="App setup">
       <option name="closed" value="true" />
@@ -148,7 +171,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709778760012</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: app">
+      <option name="closed" value="true" />
+      <created>1710182586191</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710182586191</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: git conflicy">
+      <option name="closed" value="true" />
+      <created>1710353590568</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1710353590568</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +209,9 @@
     <MESSAGE value="fix: envitonmental variable add" />
     <MESSAGE value="App setup" />
     <MESSAGE value="feat: make main page" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: make main page" />
+    <MESSAGE value="feat: app" />
+    <MESSAGE value="fix: git conflicy" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: git conflicy" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
