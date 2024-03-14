@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="update root gitignore">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/App/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="cleaning project root file" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,7 +147,7 @@
       <workItem from="1710425242481" duration="1994000" />
       <workItem from="1710427702489" duration="1179000" />
       <workItem from="1710428913982" duration="271000" />
-      <workItem from="1710429248570" duration="162000" />
+      <workItem from="1710429248570" duration="217000" />
     </task>
     <task id="LOCAL-00001" summary="App setup">
       <option name="closed" value="true" />
@@ -225,7 +221,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710429057905</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="cleaning project root file">
+      <option name="closed" value="true" />
+      <created>1710429447892</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1710429447892</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +258,8 @@
     <MESSAGE value="not versioned expo files" />
     <MESSAGE value="edit: add node_modules into gitignore" />
     <MESSAGE value="update root gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="update root gitignore" />
+    <MESSAGE value="cleaning project root file" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaning project root file" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
