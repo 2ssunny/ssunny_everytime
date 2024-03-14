@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="not versioned expo files">
-      <change beforePath="$PROJECT_DIR$/App/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/.gitignore" afterDir="false" />
+    <list default="true" id="a1ba1df8-485f-4467-b10a-c9b77db65e02" name="Changes" comment="edit: add node_modules into gitignore">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/77cd5681-c12f-40e6-8b2d-9901cf6abcbd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/77cd5681-c12f-40e6-8b2d-9901cf6abcbd.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +68,7 @@
     &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;App&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Develop&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;M:/ssunny_everytime/App/media&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -147,7 +149,8 @@
       <workItem from="1710347533774" duration="880000" />
       <workItem from="1710353440626" duration="1151000" />
       <workItem from="1710425242481" duration="1994000" />
-      <workItem from="1710427702489" duration="789000" />
+      <workItem from="1710427702489" duration="1179000" />
+      <workItem from="1710428913982" duration="131000" />
     </task>
     <task id="LOCAL-00001" summary="App setup">
       <option name="closed" value="true" />
@@ -205,7 +208,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710428377078</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="edit: add node_modules into gitignore">
+      <option name="closed" value="true" />
+      <created>1710428525056</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710428525056</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,7 +243,8 @@
     <MESSAGE value="project directory setup" />
     <MESSAGE value="project page files" />
     <MESSAGE value="not versioned expo files" />
-    <option name="LAST_COMMIT_MESSAGE" value="not versioned expo files" />
+    <MESSAGE value="edit: add node_modules into gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit: add node_modules into gitignore" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
