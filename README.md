@@ -38,3 +38,5 @@
 - Application
   - React Native
     <img alt="REACT" src ="https://img.shields.io/badge/react-61DAFB.svg?&style=flat-square&logo=React&logoColor=white"/>
+  - Expo
+    <img alt="EXPO" src ="https://img.shields.io/badge/expo-000020.svg?&style=flat-square&logo=expo&logoColor=white"/>
